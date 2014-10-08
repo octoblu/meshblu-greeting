@@ -12,5 +12,12 @@ var conx = skynet.createConnection({
 conx.on('notReady', console.error);
 conx.on('error', console.error);
 
-var plugin = new Plugin();
-conx.on('message', plugin.onMessage);
+var plugin = new Plugin(conx, {});
+conx.on('message', function(){
+  try {
+    plugin.onMessage.apply(plugin, arguments);
+  } catch (error){
+    console.error(error.message);
+    console.error(error.stack);
+  }
+});

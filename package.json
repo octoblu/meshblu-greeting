@@ -1,6 +1,6 @@
 {
   "name": "meshblu-greeting",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Meshblu Greeting connector",
   "main": "index.js",
   "dependencies": {
