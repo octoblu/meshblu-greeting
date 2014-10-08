@@ -1,0 +1,30 @@
+{
+  "name": "meshblu-greeting",
+  "version": "1.0.0",
+  "description": "Meshblu Greeting connector",
+  "main": "index.js",
+  "dependencies": {
+    "skynet": "^1.1.1",
+    "skynet-greeting": "^0.8.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/octoblu/meshblu-greeting.git"
+  },
+  "keywords": [
+    "meshblu",
+    "gateway",
+    "plugin",
+    "greeting"
+  ],
+  "author": "Octoblu, Inc. <sqrt@octoblu.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/octoblu/meshblu-greeting/issues"
+  },
+  "homepage": "https://github.com/octoblu/meshblu-greeting"
+}
