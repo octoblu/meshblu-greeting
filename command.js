@@ -1,8 +1,8 @@
 var Plugin = require('./index').Plugin;
-var skynet = require('skynet');
+var meshblu = require('meshblu');
 var config = require('./meshblu.json');
 
-var conx = skynet.createConnection({
+var conx = meshblu.createConnection({
   server: 'meshblu.octoblu.com',
   port: '80',
   uuid: config.uuid,
