@@ -1,6 +1,6 @@
 meshblu  = require 'meshblu'
 {EventEmitter} = require 'events'
-{Plugin} = require './index'
+{Plugin} = require './index.coffee'
 
 class Connector extends EventEmitter
   constructor: (@config={}) ->
