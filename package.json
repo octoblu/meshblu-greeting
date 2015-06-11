@@ -1,33 +1,29 @@
 {
   "name": "meshblu-greeting",
-  "version": "1.0.5",
-  "description": "Meshblu Greeting connector",
-  "main": "index.js",
-  "dependencies": {
-    "debug": "^2.2.0",
-    "meshblu": "^1.22.0"
-  },
+  "repository": "octoblu/meshblu-greeting",
+  "version": "2.0.1",
+  "main": "connector.js",
   "scripts": {
+    "preinstall": "node -e \"try{require('./skip-install.js')}catch(e){}\"",
     "start": "node command.js",
     "test": "exit 0"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/octoblu/meshblu-greeting.git"
+  "dependencies": {
+    "coffee-script": "^1.9.0",
+    "meshblu": "^1.22.0",
+    "debug": "^2.1.0"
   },
-  "keywords": [
-    "meshblu",
-    "gateway",
-    "plugin",
-    "greeting"
+  "bundledDependencies": [
+    "request",
+    "tar",
+    "fstream"
   ],
-  "author": "Octoblu, Inc. <sqrt@octoblu.com>",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/octoblu/meshblu-greeting/issues"
-  },
-  "homepage": "https://github.com/octoblu/meshblu-greeting",
+  "keywords": [
+    "meshblu-connector",
+    "gateblu"
+  ],
   "devDependencies": {
-    "browserify": "^10.2.1"
+    "browserify": "^10.2.3",
+    "coffeeify": "^1.1.0"
   }
 }
