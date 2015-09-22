@@ -1,13 +1,8 @@
-sudo: false
 language: node_js
-cache:
-  bundler: true
-  directories:
-    - node_modules
-notifications:
-  flowdock: e7454f5285e7b9ab67009802d5560490
 node_js:
 - '0.10'
+before_install:
+- npm i npm -g
 before_deploy:
 - mkdir -p deploy/meshblu-greeting/latest
 - mkdir -p deploy/meshblu-greeting/$TRAVIS_TAG
@@ -21,7 +16,7 @@ deploy:
   clean_up: false
   email: serveradmin@octoblu.com
   api_key:
-    secure: ItQFt+eqduvqEOWI4EbT7TLLsBbbcrmIFOEb1xwNc65NNnEfJpJWDrLUJMlmcrdkJdGDuPHNV+JuEOMlMLMZuN2gRGRgf94ZTvBK4j2zXbDEJapZ+uG76mYN/F7oPIyIiljDphJ+q6PVCzYubhejwr7vHo5vLt3wzmaZf9swM80=
+    secure: "JbWdejjiLYKk8YDTLwNZpoSvGtb/WCThHRb1oAYZhd7P/hCFnGUPtqqFeA7tKphiI+Sig5HEaoJ1Zt1qXaMUXhMR/f2YYRIFzkQE+EiJsFHygZXpb8jfgUrm7O8cFMvW8O8iUnNjeB+bpl2axkgppf2DnYxGdyu7IAiFadspqLA="
   on:
     tags: true
     all_branches: true

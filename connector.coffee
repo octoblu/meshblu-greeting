@@ -1,10 +1,14 @@
-meshblu  = require 'meshblu'
+_              = require 'lodash'
+meshblu        = require 'meshblu'
+packageJSON    = require './package.json'
 {EventEmitter} = require 'events'
-{Plugin} = require './index.coffee'
+{Plugin}       = require './index.coffee'
 
 class Connector extends EventEmitter
   constructor: (@config={}) ->
-    process.on 'uncaughtException', @consoleError
+    process?.on 'uncaughtException', (error) =>
+      @emitError error
+      process?.exit 1
 
   createConnection: =>
     @conx = meshblu.createConnection
@@ -13,8 +17,8 @@ class Connector extends EventEmitter
       uuid   : @config.uuid
       token  : @config.token
 
-    @conx.on 'notReady', @consoleError
-    @conx.on 'error', @consoleError
+    @conx.on 'notReady', @emitError
+    @conx.on 'error', @emitError
 
     @conx.on 'ready', @onReady
     @conx.on 'message', @onMessage
@@ -25,24 +29,29 @@ class Connector extends EventEmitter
     try
       @plugin.onConfig arguments...
     catch error
-      @consoleError error
+      @emitError error
 
   onMessage: (message) =>
     @emit 'message.recieve', message
     try
       @plugin.onMessage arguments...
     catch error
-      @consoleError error
+      @emitError error
 
   onReady: =>
     @conx.whoami uuid: @config.uuid, (device) =>
       @plugin.setOptions device.options
+      oldRecentVersions = device.recentVersions || [];
+      recentVersions = _.union oldRecentVersions, [packageJSON.version]
       @conx.update
-        uuid:          @config.uuid,
-        token:         @config.token,
-        messageSchema: @plugin.messageSchema,
-        optionsSchema: @plugin.optionsSchema,
+        uuid:          @config.uuid
+        token:         @config.token
+        messageSchema: @plugin.messageSchema
+        optionsSchema: @plugin.optionsSchema
         options:       @plugin.options
+        initializing:  false
+        currentVersion: packageJSON.version
+        recentVersions: recentVersions
 
   run: =>
     @plugin = new Plugin();
@@ -51,14 +60,17 @@ class Connector extends EventEmitter
       @emit 'data.send', data
       @conx.data data
 
-    @plugin.on 'error', @consoleError
+    @plugin.on 'error', @emitError
+
+    @plugin.on 'update', (properties) =>
+      @emit 'update', properties
+      @conx.update properties
 
     @plugin.on 'message', (message) =>
       @emit 'message.send', message
       @conx.message message
 
-  consoleError: (error) =>
+  emitError: (error) =>
     @emit 'error', error
-    console.error error
 
 module.exports = Connector;
